@@ -200,6 +200,15 @@ class StreamHandler
             $request['client']['verify'] = true;
         }
 
+        // gae: https://cloud.google.com/appengine/docs/php/outbound-requests#request_headers
+        $request = Core::removeHeader($request, 'Content-Length');
+        $request = Core::removeHeader($request, 'Host');
+        $request = Core::removeHeader($request, 'Vary');
+        $request = Core::removeHeader($request, 'Via');
+        $request = Core::removeHeader($request, 'X-Appengine-Inbound-Appid');
+        $request = Core::removeHeader($request, 'X-Forwarded-For');
+        $request = Core::removeHeader($request, 'X-ProxyUser-IP');
+
         $params = [];
         $options = $this->getDefaultOptions($request);
 
