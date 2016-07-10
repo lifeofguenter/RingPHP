@@ -210,7 +210,7 @@ class StreamHandler
         $request = Core::removeHeader($request, 'X-ProxyUser-IP');
 
         if (!empty($request['client']['curl']['CURLOPT_USERPWD'])) {
-            $request = Core::setHeader($request, 'Authorization', base64_encode($request['client']['curl']['CURLOPT_USERPWD']));
+            $request = Core::setHeader($request, 'Authorization', [base64_encode($request['client']['curl']['CURLOPT_USERPWD'])]);
         }
 
         $params = [];
