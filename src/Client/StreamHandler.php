@@ -275,9 +275,9 @@ class StreamHandler
         if ($value === true) {
             // PHP 5.6 or greater will find the system cert by default. When
             // < 5.6, use the Guzzle bundled cacert.
-            if (PHP_VERSION_ID < 50600) {
-                $options['ssl']['cafile'] = ClientUtils::getDefaultCaBundle();
-            }
+            //if (PHP_VERSION_ID < 50600) {
+            //    $options['ssl']['cafile'] = ClientUtils::getDefaultCaBundle();
+            //}
         } elseif (is_string($value)) {
             $options['ssl']['cafile'] = $value;
             if (!file_exists($value)) {
@@ -285,14 +285,14 @@ class StreamHandler
             }
         } elseif ($value === false) {
             $options['ssl']['verify_peer'] = false;
-            $options['ssl']['allow_self_signed'] = true;
+            //$options['ssl']['allow_self_signed'] = true;
             return;
         } else {
             throw new RingException('Invalid verify request option');
         }
 
         $options['ssl']['verify_peer'] = true;
-        $options['ssl']['allow_self_signed'] = false;
+        //$options['ssl']['allow_self_signed'] = false;
     }
 
     private function add_cert(array $request, &$options, $value, &$params)
