@@ -49,8 +49,10 @@ class StreamHandler
             'reason'         => isset($parts[2]) ? $parts[2] : null,
             'headers'        => Core::headersFromLines($hdrs),
             'effective_url'  => $url,
+            'transfer_stats' => [],
         ];
 
+        $start_time = microtime(true);
         $stream = $this->checkDecode($request, $response, $stream);
 
         // If not streaming, then drain the response into a stream.
@@ -62,6 +64,8 @@ class StreamHandler
         }
 
         $response['body'] = $stream;
+
+        $response['transfer_stats']['total_time'] = microtime(true) - $start_time;
 
         return new CompletedFutureArray($response);
     }
